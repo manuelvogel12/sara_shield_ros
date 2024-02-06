@@ -1,0 +1,7 @@
+[submodule "src/rviz_plugin_sara_shield"]
+	path = src/rviz_plugin_sara_shield
+	url = https://github.com/manuelvogel12/rviz_plugin_sara_shield.git
+	branch = 7_joints
+[submodule "src/franka_sara_shield_controller"]
+	path = src/franka_sara_shield_controller
+	url = https://github.com/manuelvogel12/franka_sara_shield_controller.git
