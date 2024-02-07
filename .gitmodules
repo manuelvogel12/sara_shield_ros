@@ -5,3 +5,9 @@
 [submodule "src/franka_sara_shield_controller"]
 	path = src/franka_sara_shield_controller
 	url = https://github.com/manuelvogel12/franka_sara_shield_controller.git
+[submodule "src/sara-shield"]
+	path = src/sara-shield
+	url = git@gitlab.lrz.de:cps-robotics/sara-shield.git
+[submodule "src/franka_ros"]
+	path = src/franka_ros
+	url = git@github.com:frankaemika/franka_ros.git
