@@ -24,13 +24,14 @@ RUN export EIGEN3_INCLUDE_DIR="/usr/local/include/eigen3/"
 RUN echo 'export EIGEN3_INCLUDE_DIR="/usr/local/include/eigen3/"' >> /home/user/.bashrc
 
 # installing safety_shield
-# git clone --recurse-submodules git@github.com:JakobThumm/sara-shield.git
-# RUN mkdir sara-shield/safety_shield/build
-# WORKDIR sara-shield/safety_shield/build
-# RUN cmake ..
-# USER root
-# RUN sudo make -j8 install
-# USER user
+WORKDIR /home/user
+git clone --recurse-submodules -b build-imporvement-for-ros git@gitlab.lrz.de:cps-robotics/sara-shield.git
+RUN mkdir sara-shield/safety_shield/build
+WORKDIR sara-shield/safety_shield/build
+RUN cmake ..
+USER root
+RUN sudo make -j8 install
+USER user
 
 WORKDIR /home/user
 
@@ -48,6 +49,7 @@ USER user
 
 WORKDIR /home/user
 
+RUN echo "export SARA_SHIELD_CONFIG_PATH=/home/user/sara-shield/safety_shield/config" >> /home/user/.bashrc
 RUN echo 'echo "USAGE:"' >> /home/user/.bashrc
 RUN echo 'echo "run simulation....: roslaunch franka_sara_shield_controller panda.launch x:=-0.5 world:=/opt/ros/noetic/share/franka_gazebo/world/stone.sdf controller:=sara_shield_controller rviz:=true headless:=true"' >> /home/user/.bashrc
 
