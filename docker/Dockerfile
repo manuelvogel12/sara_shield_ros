@@ -27,6 +27,7 @@ RUN rm eigen-3.4.0 -rf
 RUN echo 'export EIGEN3_INCLUDE_DIR="/usr/local/include/eigen3/"' >> /home/user/.bashrc
 
 # installing safety_shield
+WORKDIR /home/user
 RUN git clone --recurse-submodules https://github.com/manuelvogel12/temporary_sara_shield_mirror.git sara-shield
 RUN mkdir sara-shield/safety_shield/build
 WORKDIR sara-shield/safety_shield/build
@@ -43,13 +44,15 @@ RUN mkdir catkin_ws/src
 
 WORKDIR catkin_ws/src
 RUN git clone https://github.com/manuelvogel12/franka_sara_shield_controller.git
-RUN git clone https://github.com/manuelvogel12/rviz_plugin_sara_shield.git
+RUN git clone -b panda https://github.com/manuelvogel12/rviz_plugin_sara_shield.git
 WORKDIR ..
 RUN catkin init
 RUN catkin build
 USER user
 RUN source devel/setup.bash
 
+RUN echo "export SARA_SHIELD_CONFIG_PATH=/home/user/sara-shield/safety_shield/config" >> /home/user/.bashrc
+RUN echo "source /home/user/catkin_ws/devel/setup.bash" >> home/user/.bashrc
 RUN echo 'echo "USAGE:"' >> /home/user/.bashrc
 RUN echo 'echo "run simulation....: roslaunch franka_sara_shield_controller panda.launch x:=-0.5 world:=/opt/ros/noetic/share/franka_gazebo/world/stone.sdf headless:=true"' >> /home/user/.bashrc
 
