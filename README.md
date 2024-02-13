@@ -37,11 +37,65 @@ echo "source $(pwd)/devel/setup.bash" >> ~/.bashrc
 ./build-docker.bash
 ./run-docker.bash
 
-##  Usage
-Each command should be executed in its own terminal:
-```
-roscore
-```
+##  Usage gazebo
 ```
 roslaunch franka_sara_shield_controller panda.launch x:=-0.5 world:=/opt/ros/noetic/share/franka_gazebo/world/stone.sdf headless:=true
+```
+
+##  Usage real robot
+Each command should be executed in its own terminal:
+```
+roslaunch franka_sara_shield_controller sara_shield_impedance_controller.launch robot_ip:=172.16.0.2 load_gripper:=true robot:=fr3
+```
+
+
+### Send out desired joint pos
+```
+rostopic pub /sara_shield/goal_joint_pos std_msgs/Float32MultiArray "layout:
+  dim:
+  - label: ''
+    size: 0
+    stride: 0
+  data_offset: 0
+data:
+- 0.0
+- -0.78539
+- 0.0
+- -2.35619
+- 0.0
+- 1.5707
+- 0.78539"
+```
+Two different configurations to test:
+```
+rostopic pub /sara_shield/goal_joint_pos std_msgs/Float32MultiArray "layout:
+  dim:
+  - label: ''
+    size: 0
+    stride: 0
+  data_offset: 0
+data:
+- 1.0
+- -1.0
+- 0.5
+- -1.35619
+- 0.0
+- 1.5707
+- 0.78539"
+```
+```
+rostopic pub /sara_shield/goal_joint_pos std_msgs/Float32MultiArray "layout:
+  dim:
+  - label: ''
+    size: 0
+    stride: 0
+  data_offset: 0
+data:
+- -1.0
+- -0.4 
+- -0.5
+- -2.0 
+- 0.0
+- 1.5707
+- 0.78539"
 ```
