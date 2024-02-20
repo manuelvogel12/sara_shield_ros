@@ -14,11 +14,6 @@ git clone --recurse-submodules -b build-imporvement-for-ros git@gitlab.lrz.de:cp
 cd sara-shield/safety_shield
 mkdir build && cd build && cmake .. && sudo make install -j8
 ```
-Define the path to the configuration files:
-```
-cd ..
-echo "export SARA_SHIELD_CONFIG_PATH=$(pwd)/config" >> ~/.bashrc
-```
 ### Build ROS workspace
 Clone this repo and build the workspace
 ```
@@ -32,6 +27,11 @@ Add `source devel/setup.bash` to your `~/.bashrc`:
 ```
 echo "source $(pwd)/devel/setup.bash" >> ~/.bashrc
 ```
+Define the path to the configuration files:
+```
+cd ..
+echo "export SARA_SHIELD_CONFIG_PATH=$(pwd)/src/franka_sara_shield_controller/config" >> ~/.bashrc
+```
 
 ## DOCKER
 ./build-docker.bash
@@ -43,11 +43,13 @@ roslaunch franka_sara_shield_controller panda.launch x:=-0.5 world:=/opt/ros/noe
 ```
 
 ##  Usage real robot
-Each command should be executed in its own terminal:
+Launch the real robot setup with:
 ```
-roslaunch franka_sara_shield_controller sara_shield_impedance_controller.launch robot_ip:=172.16.0.2 load_gripper:=true robot:=fr3
+roslaunch franka_sara_shield_controller sara_shield_impedance_controller.launch robot_ip:=172.16.0.2 load_gripper:=true robot:=fr3 server:=192.168.1.2
 ```
-
+```
+roslaunch franka_sara_shield_controller motion.launch
+```
 
 ### Send out desired joint pos
 ```
