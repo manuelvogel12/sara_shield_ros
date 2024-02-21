@@ -101,6 +101,15 @@ data:
 - 1.5707
 - 0.78539"
 ```
+### Set the SaRA shield mode
+```
+rostopic pub /sara_shield/shield_mode std_msgs/String "data: 'SSM'"
+```
+Choose between:
+  - `SSM`: Robot stops for human. (Speed and separation monitoring)
+  - `PFL`: Robot slows down for human. (Power and force limiting)
+  - `OFF`: Robot is in Cartesian impedance control mode (and is slowed down significantly).
+
 ### Tune Cartesian impedance controller
 ```
 rosrun rqt_reconfigure rqt_reconfigure
