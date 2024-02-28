@@ -101,6 +101,32 @@ data:
 - 1.5707
 - 0.78539"
 ```
+### Grip objects
+rostopic pub /franka_gripper/grasp/goal franka_gripper/GraspActionGoal "header:
+  seq: 0
+  stamp:
+    secs: 0
+    nsecs: 0
+  frame_id: ''
+goal_id:
+  stamp:
+    secs: 0
+    nsecs: 0
+  id: ''
+goal:
+  width: 0.0
+  epsilon:
+    inner: 0.0001
+    outer: 0.0001
+  speed: 0.02
+  force: 10.0"
+
+Parameters:
+  - width: doesn't make a difference really. Set `width: 0.0` for close and `width: 1.0` for open.
+  - speed: `0.02` is quite slow, `0.1` is quite fast. 
+  - force: `0.01` is soft. `0.1` is medium. 
+
+
 ### Set the SaRA shield mode
 ```
 rostopic pub /sara_shield/shield_mode std_msgs/String "data: 'SSM'"
@@ -114,3 +140,10 @@ Choose between:
 ```
 rosrun rqt_reconfigure rqt_reconfigure
 ```
+
+### Communication with main workstation
+On this machine, define the rosmaster uri
+```
+export ROS_MASTER_URI=http://10.42.0.69:11311
+```
+Do exactly the same on the other machine. Make sure your ip setup is correct, so that the IP is pingable.
